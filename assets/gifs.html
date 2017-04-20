@@ -11,13 +11,14 @@
         <title>Задание 3: Мобилизация.Гифки</title>
 
         <!-- Проверка поддержки браузерных фич для bem-components -->
-        <script>(function(e,c){e[c]=e[c].replace(/(ua_js_)no/g,"$1yes");})(document.documentElement,"className");(function(d,n){d.documentElement.className+=" ua_svg_"+(d[n]&&d[n]("http://www.w3.org/2000/svg","svg").createSVGRect?"yes":"no");})(document,"createElementNS");</script>
+        <script type="text/javascript">(function(e,c){e[c]=e[c].replace(/(ua_js_)no/g,"$1yes");})(document.documentElement,"className");(function(d,n){d.documentElement.className+=" ua_svg_"+(d[n]&&d[n]("http://www.w3.org/2000/svg","svg").createSVGRect?"yes":"no");})(document,"createElementNS");
 
-        <!-- Стили bem-components -->
+        </script>
+          <!-- Стили bem-components -->
         <link rel="stylesheet" href="vendor/bem-components-dist-5.0.0/touch-phone/bem-components.dev.css">
 
         <!-- Стили проекта -->
-        <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body class="page page_theme_islands i-bem" data-bem='{"page":{}}'>
         <!-- Шапка страницы -->
@@ -99,9 +100,11 @@
         <script src="vendor/kv-keeper.js-1.0.4/kv-keeper.js"></script>
 
         <!-- BEMHTML-шаблоны, определённые на проекте -->
-        <script src="assets/templates.js"></script>
+        <script src="templates.js"></script>
 
         <!-- Клиентский JS блоков проекта -->
-        <script src="assets/blocks.js"></script>
+        <script src="blocks.js"></script>
+
+
     </body>
 </html>

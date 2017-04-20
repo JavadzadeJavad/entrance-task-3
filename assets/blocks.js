@@ -9,6 +9,10 @@
  *  – Сущности библиотеки визуальных блоков bem-components: https://ru.bem.info/platform/libs/bem-components/5.0.0/
  */
 
+
+
+
+
 // Главный блок страницы
 modules.define(
     'page',
@@ -71,6 +75,7 @@ modules.define(
                     this._resultsBlock = this._elem('results').findMixedBlock(Results);
                 }
                 return this._resultsBlock;
+
             },
 
             _getSpinnerBlock: function() {
@@ -92,6 +97,7 @@ modules.define(
                     this._favoritesBlock = this._elem('favorites').findMixedBlock(FavoritesContainer);
                 }
                 return this._favoritesBlock;
+
             }
         }));
     }
@@ -156,6 +162,7 @@ modules.define(
                 var _this = this;
 
                 document.title = text + ' – ' + this._baseTitle;
+
 
                 var url = this._replaceTextInUrl(text);
                 if (replace) {
@@ -256,6 +263,7 @@ modules.define(
                         var sources = this._picture._elem('source').domElem
                             .toArray()
                             .map(function(source) {
+
                                 return {
                                     url: source.getAttribute('srcset'),
                                     type: source.getAttribute('type')
@@ -292,6 +300,7 @@ modules.define(
         }, {
             addToFavorites: function(id, images) {
                 return promisify(KvKeeper, 'setItem', 'favorites:' + id, JSON.stringify(images))
+
                     .then(function() {
                         ServiceWorker.getInstance().notifyAddFavorite(id, images);
                     });
@@ -346,9 +355,10 @@ modules.define(
                                 // 'favorites:'.length == 10
                                 return key.slice(10);
                             });
-
                         return vow.all(ids.map(_this.getFavoriteById, _this));
                     })
+
+
             }
         }));
     }
@@ -391,13 +401,15 @@ modules.define('favorites-container', ['i-bem-dom', 'modal', 'favorites-controll
                         if (!res.length) {
                             return '';
                         }
-
                         return BEMHTML.apply({
                             block: 'favorites-list',
-                            content: res.map(_this._renderFavoriteItem, _this)
+                            content: res.map(_this._renderFavoriteItem, _this),
+
                         });
+
                     });
             },
+
 
             _renderFavoriteItem: function(doc) {
                 // Декларацию элемента см. в файле templates.js
@@ -414,7 +426,10 @@ modules.define('favorites-container', ['i-bem-dom', 'modal', 'favorites-controll
         }, {
             // Инициализировать только при обращении
             lazyInit: true
-        }));
+        }
+        ));
+
+
     }
 );
 
@@ -466,9 +481,9 @@ modules.define('service-worker', ['i-bem'], function(provide, bem) {
             }
 
             this._serviceWorker
-                .register('./assets/service-worker.js')
+                .register('service-worker.js')
                 .then(function() {
-                    console.log('[ServiceWorkerContainer] ServiceWorker is registered!');
+                    console.log('[ServiceWorkerContainer] ServiceWorker is registered !');
                 })
                 .catch(function(err) {
                     console.error('[ServiceWorkerContainer]', err);
@@ -476,6 +491,7 @@ modules.define('service-worker', ['i-bem'], function(provide, bem) {
         },
 
         notifyAddFavorite: function(id, images) {
+            console.log(this._postMessage('favorite:add', id, images));
             this._postMessage('favorite:add', id, images);
         },
 
@@ -499,6 +515,7 @@ modules.define('service-worker', ['i-bem'], function(provide, bem) {
                 this._instance = new this();
             }
             return this._instance;
+
         }
     }));
 });
